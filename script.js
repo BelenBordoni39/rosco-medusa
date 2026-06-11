@@ -110,6 +110,7 @@ info:"Derrotar."
 }
 ];
 
+```javascript
 let current = 0;
 let timer = 120;
 let interval;
@@ -117,274 +118,364 @@ let interval;
 let correct = 0;
 let wrong = 0;
 
+/* SONIDOS */
+
 function playSuccessSound() {
 
-```
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-const osc = audioCtx.createOscillator();
-const gain = audioCtx.createGain();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
 
-osc.type = "sine";
+    osc.type = "sine";
 
-osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-osc.frequency.setValueAtTime(900, audioCtx.currentTime + 0.1);
+    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+    osc.frequency.linearRampToValueAtTime(
+        900,
+        audioCtx.currentTime + 0.15
+    );
 
-osc.connect(gain);
-gain.connect(audioCtx.destination);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
 
-osc.start();
-osc.stop(audioCtx.currentTime + 0.2);
-```
-
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.2);
 }
 
 function playErrorSound() {
 
-```
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-const osc = audioCtx.createOscillator();
-const gain = audioCtx.createGain();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
 
-osc.type = "sawtooth";
+    osc.type = "sawtooth";
 
-osc.frequency.setValueAtTime(250, audioCtx.currentTime);
-osc.frequency.setValueAtTime(120, audioCtx.currentTime + 0.3);
+    osc.frequency.setValueAtTime(250, audioCtx.currentTime);
+    osc.frequency.linearRampToValueAtTime(
+        120,
+        audioCtx.currentTime + 0.25
+    );
 
-osc.connect(gain);
-gain.connect(audioCtx.destination);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
 
-gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
 
-osc.start();
-osc.stop(audioCtx.currentTime + 0.3);
-```
-
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.3);
 }
 
+/* ROSCO */
 
 function createRosco(){
 
-const rosco = document.getElementById("rosco");
-rosco.innerHTML = "";
+    const rosco = document.getElementById("rosco");
 
-const total = questions.length;
-const radius =
-window.innerWidth < 700
-? 135
-: 210;
+    rosco.innerHTML = "";
 
-questions.forEach((item,index)=>{
+    const total = questions.length;
 
-const angle = (index/total)*2*Math.PI;
+    const radius =
+        window.innerWidth < 700
+        ? 135
+        : 210;
 
-const x = radius*Math.cos(angle);
-const y = radius*Math.sin(angle);
+    const center =
+        window.innerWidth < 700
+        ? 170
+        : 225;
 
-const div = document.createElement("div");
+    questions.forEach((item,index)=>{
 
-div.classList.add("letter");
-div.id = "letter-"+index;
-div.innerText = item.letter;
+        const angle =
+            (index/total) * 2 * Math.PI;
 
-div.style.left=(225+x)+"px";
-div.style.top=(225+y)+"px";
+        const x =
+            radius * Math.cos(angle);
 
-rosco.appendChild(div);
+        const y =
+            radius * Math.sin(angle);
 
-});
+        const div =
+            document.createElement("div");
+
+        div.classList.add("letter");
+
+        div.id =
+            "letter-" + index;
+
+        div.innerText =
+            item.letter;
+
+        div.style.left =
+            (center + x) + "px";
+
+        div.style.top =
+            (center + y) + "px";
+
+        rosco.appendChild(div);
+
+    });
+
 }
 
 createRosco();
 
+window.addEventListener(
+    "resize",
+    createRosco
+);
+
+/* PREGUNTAS */
+
 function showQuestion(){
 
-document.querySelectorAll(".letter")
-.forEach(el=>el.classList.remove("active"));
+    document
+    .querySelectorAll(".letter")
+    .forEach(el =>
+        el.classList.remove("active")
+    );
 
-const active = document.getElementById("letter-"+current);
+    const active =
+        document.getElementById(
+            "letter-" + current
+        );
 
-if(active)
-active.classList.add("active");
+    if(active){
+        active.classList.add("active");
+    }
 
-document.getElementById("letter").innerText =
-questions[current].letter;
+    document.getElementById("letter")
+    .innerText =
+    questions[current].letter;
 
-document.getElementById("question").innerText =
-questions[current].question;
+    document.getElementById("question")
+    .innerText =
+    questions[current].question;
+
 }
+
+/* CRONÓMETRO */
 
 function startGame(){
 
-clearInterval(interval);
+    clearInterval(interval);
 
-current = 0;
-correct = 0;
-wrong = 0;
-timer = 120;
+    current = 0;
+    timer = 120;
+    correct = 0;
+    wrong = 0;
 
-document.getElementById("correct").innerText = 0;
-document.getElementById("wrong").innerText = 0;
+    document.getElementById("correct")
+    .innerText = 0;
 
-showQuestion();
+    document.getElementById("wrong")
+    .innerText = 0;
 
-interval = setInterval(()=>{
+    document.getElementById("feedback")
+    .innerHTML = "";
 
-timer--;
+    createRosco();
 
-document.getElementById("time").innerText = timer;
+    showQuestion();
 
-if(timer<=0){
-finishGame();
+    speakQuestion();
+
+    interval = setInterval(()=>{
+
+        timer--;
+
+        document.getElementById("time")
+        .innerText = timer;
+
+        if(timer <= 0){
+            finishGame();
+        }
+
+    },1000);
+
 }
 
-},1000);
-
-speakQuestion();
-}
+/* VOZ */
 
 function speakQuestion(){
 
-const text =
-document.getElementById("question").innerText;
+    speechSynthesis.cancel();
 
-speechSynthesis.cancel();
+    const speech =
+        new SpeechSynthesisUtterance(
+            document.getElementById(
+                "question"
+            ).innerText
+        );
 
-const speech =
-new SpeechSynthesisUtterance(text);
+    speech.lang = "es-AR";
 
-speech.lang = "es-AR";
+    speechSynthesis.speak(speech);
 
-speechSynthesis.speak(speech);
 }
 
 function listenAnswer(){
 
-const SR =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
+    const SR =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
 
-if(!SR){
+    if(!SR){
 
-alert("Reconocimiento de voz no disponible.");
-return;
+        alert(
+            "Tu navegador no soporta reconocimiento de voz."
+        );
+
+        return;
+
+    }
+
+    const recognition =
+        new SR();
+
+    recognition.lang = "es-AR";
+
+    recognition.start();
+
+    recognition.onresult = function(event){
+
+        const answer =
+            event.results[0][0]
+            .transcript
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g,"");
+
+        const correctAnswer =
+            questions[current]
+            .answer;
+
+        const isCorrect =
+            answer.includes(correctAnswer) ||
+            correctAnswer.includes(answer);
+
+        if(isCorrect){
+
+            playSuccessSound();
+
+            correct++;
+
+            document.getElementById("correct")
+            .innerText = correct;
+
+            document.getElementById("feedback")
+            .innerHTML =
+            "✅ Correcto<br>" +
+            questions[current].info;
+
+            document.getElementById(
+                "letter-" + current
+            ).classList.add("correct");
+
+        }else{
+
+            playErrorSound();
+
+            wrong++;
+
+            document.getElementById("wrong")
+            .innerText = wrong;
+
+            document.getElementById("feedback")
+            .innerHTML =
+            "❌ Incorrecto<br>Respuesta: " +
+            correctAnswer;
+
+            document.getElementById(
+                "letter-" + current
+            ).classList.add("wrong");
+
+        }
+
+        nextQuestion();
+
+    };
+
 }
 
-const recognition = new SR();
-
-recognition.lang = "es-AR";
-
-recognition.start();
-
-recognition.onresult = function(event){
-
-const answer =
-event.results[0][0].transcript
-.toLowerCase()
-.normalize("NFD")
-.replace(/[\u0300-\u036f]/g,"");
-
-const correctAnswer = questions[current].answer;
-
-const isCorrect =
-answer.includes(correctAnswer) ||
-correctAnswer.includes(answer);
-
-if(isCorrect){
-
-playSuccessSound();
-
-correct++;
-
-document.getElementById("correct").innerText = correct;
-
-document.getElementById("feedback").innerHTML =
-"✅ Correcto<br>"+questions[current].info;
-
-document.getElementById("letter-"+current)
-.classList.add("correct");
-
-}else{
-
-playErrorSound();
-  
-wrong++;
-
-document.getElementById("wrong").innerText = wrong;
-
-document.getElementById("feedback").innerHTML =
-"❌ Incorrecto<br>Respuesta: "+correctAnswer;
-
-document.getElementById("letter-"+current)
-.classList.add("wrong");
-}
-
-nextQuestion();
-};
-}
+/* NAVEGACIÓN */
 
 function passQuestion(){
-nextQuestion();
+
+    nextQuestion();
+
 }
 
 function nextQuestion(){
 
-current++;
+    current++;
 
-if(current >= questions.length){
-finishGame();
-return;
+    if(current >= questions.length){
+
+        finishGame();
+
+        return;
+
+    }
+
+    showQuestion();
+
+    speakQuestion();
+
 }
 
-showQuestion();
-speakQuestion();
-
-}
+/* FINAL */
 
 function finishGame(){
 
-clearInterval(interval);
+    clearInterval(interval);
 
-let medal = "🥉";
+    speechSynthesis.cancel();
 
-if(correct >= 15){
-medal = "🥇";
+    let medal = "🥉";
+
+    if(correct >= 15){
+        medal = "🥇";
+    }
+    else if(correct >= 10){
+        medal = "🥈";
+    }
+
+    document.getElementById("question")
+    .innerHTML = `
+        <div style="font-size:2.5rem;">
+            ${medal}
+        </div>
+
+        <h2>Juego terminado</h2>
+
+        <p>✅ Aciertos: ${correct}</p>
+
+        <p>❌ Errores: ${wrong}</p>
+
+        <p>⏱️ Tiempo restante: ${timer}s</p>
+    `;
+
+    document.getElementById("feedback")
+    .innerHTML = "";
+
 }
-else if(correct >= 10){
-medal = "🥈";
-}
 
-document.getElementById("question").innerHTML = `
-<div style="font-size:2rem;">
-${medal}
-</div>
-
-<h2>Juego terminado</h2>
-
-<p>✅ Aciertos: ${correct}</p>
-
-<p>❌ Errores: ${wrong}</p>
-
-<p>⏱️ Tiempo restante: ${timer}s</p>
-`;
-
-document.getElementById("feedback").innerHTML = "";
-
-speechSynthesis.cancel();
-
-}
+/* INICIO */
 
 document
 .getElementById("startBtn")
 .addEventListener("click",()=>{
 
-document
-.getElementById("welcome-screen")
-.style.display="none";
+    document
+    .getElementById("welcome-screen")
+    .style.display = "none";
 
-startGame();
+    startGame();
 
 });
+```
