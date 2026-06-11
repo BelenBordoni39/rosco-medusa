@@ -21,7 +21,7 @@ info:"Hijo de Zeus."
 {
 letter:"G",
 answer:"gorgona",
-question:"Tipo de criatura mitológica a la que pertenecía Medusa.",
+question:"Tipo de criatura mitológica es Medusa.",
 info:"Seres monstruosos de la mitología griega."
 },
 {
@@ -39,7 +39,7 @@ info:"Su rasgo más característico."
 {
 letter:"T",
 answer:"templo",
-question:"Lugar sagrado relacionado con el castigo de Medusa.",
+question:"Lugar sagrado donde es castigada Medusa.",
 info:"Consagrado a Atenea."
 },
 {
@@ -50,14 +50,14 @@ info:"Hogar de los dioses."
 },
 {
 letter:"I",
-answer:"isla",
+answer:"inframundo",
 question:"Lugar donde vivía Medusa según muchas versiones.",
 info:"Alejada del mundo humano."
 },
 {
 letter:"R",
 answer:"roca",
-question:"Lo que parecían las víctimas petrificadas por Medusa.",
+question:"De lo que parecían estar hechas las víctimas petrificadas por Medusa.",
 info:"Quedaban inmóviles para siempre."
 },
 {
@@ -65,6 +65,12 @@ letter:"H",
 answer:"heroe",
 question:"Tipo de personaje que era Perseo.",
 info:"Protagonista de grandes hazañas."
+},
+{
+letter:"O",
+answer:"ojos",
+question:"Con que parte del cuerpo Medusa petrificaba a sus victimas.",
+info:"Estan en la cara."
 },
 {
 letter:"F",
@@ -75,7 +81,7 @@ info:"Ira intensa."
 {
 letter:"D",
 answer:"decapitacion",
-question:"Forma en que Perseo venció a Medusa.",
+question:"Forma en la que Perseo venció a Medusa.",
 info:"Le cortó la cabeza."
 },
 {
@@ -85,10 +91,22 @@ question:"Parte del cuerpo conservada por Perseo.",
 info:"Seguía teniendo poderes."
 },
 {
-letter:"N",
-answer:"ninfa",
-question:"Lo que era Medusa antes de ser transformada.",
-info:"Una hermosa joven."
+letter:"H",
+answer:"hoz",
+question:"¿Con que corto la cabeza de Meduza?.",
+info:"Regalo de Hermes."
+},
+{
+letter:"Z",
+answer:"Zeus",
+question:"¿De quien es hijo Perceo?",
+info:"Dios del Olimpo."
+},
+{
+letter:"I",
+answer:"invicibilidad",
+question:"¿Que poder daba a Perceo el casco que le regalo Hades?",
+info:"No ser visto."
 },
 {
 letter:"L",
@@ -99,14 +117,14 @@ info:"Historia transmitida durante generaciones."
 {
 letter:"B",
 answer:"bronce",
-question:"Material frecuentemente asociado al escudo de Perseo.",
+question:"Material de que estaba hecho el escudo de Perseo.",
 info:"Metal utilizado en Grecia."
 },
 {
 letter:"V",
-answer:"venza",
-question:"Forma verbal: que Perseo ______ a Medusa.",
-info:"Derrotar."
+answer:"volando",
+question:"¿Como se acerco Perseo a Medusa sin hacer ruido?.",
+info:"Aire."
 }
 ];
 
