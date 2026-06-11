@@ -298,3 +298,15 @@ Tiempo restante: ${timer}s
 
 speechSynthesis.cancel();
   }
+
+document
+.getElementById("startBtn")
+.addEventListener("click",()=>{
+
+document
+.getElementById("welcome-screen")
+.style.display="none";
+
+startGame();
+
+});
