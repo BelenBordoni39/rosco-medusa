@@ -116,7 +116,7 @@ info:"Aire."
 }
 ];
 
-```javascript
+
 let current = 0;
 let timer = 120;
 let interval;
