@@ -92,7 +92,7 @@ info:"Dios del Olimpo."
 },
 {
 letter:"I",
-answer:"invicibilidad",
+answer:"invisibilidad",
 question:"¿Qué poder daba a Perceo el casco que le regaló Hades?",
 info:"No ser visto."
 },
@@ -275,34 +275,33 @@ function startGame(){
     correct = 0;
     wrong = 0;
 
-    document.getElementById("correct")
-    .innerText = 0;
+    document
+    .querySelectorAll(".letter")
+    .forEach(el=>{
+        el.classList.remove(
+            "correct",
+            "wrong",
+            "active"
+        );
+    });
 
-    document.getElementById("wrong")
-    .innerText = 0;
-
-    document.getElementById("feedback")
-    .innerHTML = "";
+    document.getElementById("correct").innerText = 0;
+    document.getElementById("wrong").innerText = 0;
+    document.getElementById("feedback").innerHTML = "";
 
     createRosco();
-
     showQuestion();
-
     speakQuestion();
 
     interval = setInterval(()=>{
-
         timer--;
-
-        document.getElementById("time")
-        .innerText = timer;
+        document.getElementById("time").innerText = timer;
 
         if(timer <= 0){
             finishGame();
         }
 
     },1000);
-
 }
 
 /* VOZ */
@@ -490,16 +489,7 @@ document
     .getElementById("welcome-screen")
     .style.display = "none";
 
-    startGame(
-    document
-.querySelectorAll(".letter")
-.forEach(el=>{
-    el.classList.remove(
-        "correct",
-        "wrong",
-        "active"
-    );
-}););
-
+    startGame();
+    
 });
 ```
