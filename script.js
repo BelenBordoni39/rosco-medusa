@@ -492,4 +492,3 @@ document
     startGame();
     
 });
-```
