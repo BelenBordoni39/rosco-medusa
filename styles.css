@@ -136,3 +136,48 @@ height:38px;
 font-size:.8rem;
 }
   }
+
+
+#welcome-screen{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(
+135deg,
+#081b3d,
+#1c3f86
+);
+z-index:999;
+}
+
+.welcome-card{
+background:white;
+color:#222;
+padding:40px;
+border-radius:20px;
+text-align:center;
+max-width:500px;
+box-shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+.welcome-card h1{
+font-size:3rem;
+margin-bottom:10px;
+}
+
+.welcome-card h2{
+margin-bottom:20px;
+}
+
+.welcome-card p{
+font-size:1.1rem;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+#startBtn{
+font-size:1.2rem;
+padding:15px 30px;
+}
