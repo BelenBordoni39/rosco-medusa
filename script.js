@@ -81,7 +81,7 @@ info:"Seguía teniendo poderes."
 {
 letter:"H",
 answer:"hoz",
-question:"¿Con que cortó Persep la cabeza de Meduza?.",
+question:"¿Con qué cortó Perseo la cabeza de Meduza?.",
 info:"Regalo de Hermes."
 },
 {
@@ -93,7 +93,7 @@ info:"Dios del Olimpo."
 {
 letter:"I",
 answer:"invicibilidad",
-question:"¿Que poder daba a Perceo el casco que le regalo Hades?",
+question:"¿Qué poder daba a Perceo el casco que le regaló Hades?",
 info:"No ser visto."
 },
 {
@@ -468,6 +468,15 @@ function finishGame(){
 
     document.getElementById("feedback")
     .innerHTML = "";
+    document
+.querySelectorAll(".letter")
+.forEach(el=>{
+    el.classList.remove(
+        "correct",
+        "wrong",
+        "active"
+    );
+});
 
 }
 
