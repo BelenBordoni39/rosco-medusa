@@ -295,8 +295,7 @@ correctAnswer.includes(answer);
 
 if(isCorrect){
 
-correctSound.currentTime = 0;
-correctSound.play();
+playSuccessSound();
 
 correct++;
 
@@ -310,9 +309,8 @@ document.getElementById("letter-"+current)
 
 }else{
 
-wrongSound.currentTime = 0;
-wrongSound.play();
-
+playErrorSound();
+  
 wrong++;
 
 document.getElementById("wrong").innerText = wrong;
