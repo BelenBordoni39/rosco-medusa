@@ -117,13 +117,19 @@ let interval;
 let correct = 0;
 let wrong = 0;
 
+const correctSound = new Audio("assets/sounds/correct.mp3");
+const wrongSound = new Audio("assets/sounds/wrong.mp3");
+
 function createRosco(){
 
 const rosco = document.getElementById("rosco");
 rosco.innerHTML = "";
 
 const total = questions.length;
-const radius = 210;
+const radius =
+window.innerWidth < 700
+? 135
+: 210;
 
 questions.forEach((item,index)=>{
 
@@ -235,10 +241,16 @@ event.results[0][0].transcript
 .normalize("NFD")
 .replace(/[\u0300-\u036f]/g,"");
 
-const correctAnswer =
-questions[current].answer;
+const correctAnswer = questions[current].answer;
 
-if(answer.includes(correctAnswer)){
+const isCorrect =
+answer.includes(correctAnswer) ||
+correctAnswer.includes(answer);
+
+if(isCorrect){
+
+correctSound.currentTime = 0;
+correctSound.play();
 
 correct++;
 
@@ -251,6 +263,9 @@ document.getElementById("letter-"+current)
 .classList.add("correct");
 
 }else{
+
+wrongSound.currentTime = 0;
+wrongSound.play();
 
 wrong++;
 
@@ -275,29 +290,48 @@ function nextQuestion(){
 
 current++;
 
-if(current>=questions.length){
+if(current >= questions.length){
 finishGame();
 return;
 }
 
 showQuestion();
+speakQuestion();
+
 }
 
 function finishGame(){
 
 clearInterval(interval);
 
-document.getElementById("question").innerHTML =
-`
-🏆 Juego terminado
+let medal = "🥉";
 
-Aciertos: ${correct}<br>
-Errores: ${wrong}<br>
-Tiempo restante: ${timer}s
+if(correct >= 15){
+medal = "🥇";
+}
+else if(correct >= 10){
+medal = "🥈";
+}
+
+document.getElementById("question").innerHTML = `
+<div style="font-size:2rem;">
+${medal}
+</div>
+
+<h2>Juego terminado</h2>
+
+<p>✅ Aciertos: ${correct}</p>
+
+<p>❌ Errores: ${wrong}</p>
+
+<p>⏱️ Tiempo restante: ${timer}s</p>
 `;
 
+document.getElementById("feedback").innerHTML = "";
+
 speechSynthesis.cancel();
-  }
+
+}
 
 document
 .getElementById("startBtn")
