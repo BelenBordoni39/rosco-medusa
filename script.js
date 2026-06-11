@@ -117,8 +117,54 @@ let interval;
 let correct = 0;
 let wrong = 0;
 
-const correctSound = new Audio("assets/sounds/correct.mp3");
-const wrongSound = new Audio("assets/sounds/wrong.mp3");
+function playSuccessSound() {
+
+```
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+
+osc.type = "sine";
+
+osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+osc.frequency.setValueAtTime(900, audioCtx.currentTime + 0.1);
+
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.2);
+```
+
+}
+
+function playErrorSound() {
+
+```
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+
+osc.type = "sawtooth";
+
+osc.frequency.setValueAtTime(250, audioCtx.currentTime);
+osc.frequency.setValueAtTime(120, audioCtx.currentTime + 0.3);
+
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+
+gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+
+osc.start();
+osc.stop(audioCtx.currentTime + 0.3);
+```
+
+}
+
 
 function createRosco(){
 
