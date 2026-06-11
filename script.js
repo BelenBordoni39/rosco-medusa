@@ -111,7 +111,7 @@ info:"Metal utilizado en Grecia."
 {
 letter:"V",
 answer:"volando",
-question:"¿Como se acerco Perseo a Medusa sin hacer ruido?.",
+question:"¿Como se acercó Perseo a Medusa sin hacer ruido?.",
 info:"Aire."
 }
 ];
