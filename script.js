@@ -49,12 +49,6 @@ question:"Montaña donde vivían los dioses griegos.",
 info:"Hogar de los dioses."
 },
 {
-letter:"I",
-answer:"inframundo",
-question:"Lugar donde vivía Medusa según muchas versiones.",
-info:"Alejada del mundo humano."
-},
-{
 letter:"R",
 answer:"roca",
 question:"De lo que parecían estar hechas las víctimas petrificadas por Medusa.",
@@ -65,12 +59,6 @@ letter:"H",
 answer:"heroe",
 question:"Tipo de personaje que era Perseo.",
 info:"Protagonista de grandes hazañas."
-},
-{
-letter:"O",
-answer:"ojos",
-question:"Con que parte del cuerpo Medusa petrificaba a sus victimas.",
-info:"Estan en la cara."
 },
 {
 letter:"F",
@@ -93,13 +81,13 @@ info:"Seguía teniendo poderes."
 {
 letter:"H",
 answer:"hoz",
-question:"¿Con que corto la cabeza de Meduza?.",
+question:"¿Con que cortó Persep la cabeza de Meduza?.",
 info:"Regalo de Hermes."
 },
 {
 letter:"Z",
-answer:"Zeus",
-question:"¿De quien es hijo Perceo?",
+answer:"zeus",
+question:"¿De quién es hijo Perceo?",
 info:"Dios del Olimpo."
 },
 {
@@ -493,7 +481,16 @@ document
     .getElementById("welcome-screen")
     .style.display = "none";
 
-    startGame();
+    startGame(
+    document
+.querySelectorAll(".letter")
+.forEach(el=>{
+    el.classList.remove(
+        "correct",
+        "wrong",
+        "active"
+    );
+}););
 
 });
 ```
