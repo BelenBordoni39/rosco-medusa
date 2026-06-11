@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,63 +7,92 @@
     <title>Rosco Educativo - El Mito de Medusa</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-    
+    <!-- PANTALLA DE BIENVENIDA -->
     <div id="welcome-screen">
-    <div class="welcome-card">
-        <h1>🐍 Rosco Educativo</h1>
-        <h2>El mito de Medusa</h2>
+        <div class="welcome-card">
 
-        <p>
-            Poné a prueba tus conocimientos
-            sobre la mitología griega.
-        </p>
+            <h1>🐍 Rosco Educativo</h1>
 
-        <button id="startBtn">
-            Comenzar
-        </button>
-    </div>
-</div>
+            <h2>El mito de Medusa</h2>
 
-<div class="container">
+            <p>
+                Poné a prueba tus conocimientos sobre la mitología griega.
+                Escuchá las preguntas, respondé con tu voz y completá el rosco.
+            </p>
 
-    <header>
-        <h1>🐍 Rosco Educativo</h1>
-        <h2>El mito de Medusa</h2>
-    </header>
+            <p>
+                🎤 Respuestas por voz<br>
+                ⏱️ 120 segundos<br>
+                🏆 Concurso educativo
+            </p>
 
-    <div class="top-bar">
-        <div class="timer">
-            ⏱️ <span id="time">120</span>
-        </div>
+            <button id="startBtn">
+                ▶️ Comenzar
+            </button>
 
-        <div class="score">
-            ✅ <span id="correct">0</span>
-            ❌ <span id="wrong">0</span>
         </div>
     </div>
 
-    <div class="rosco-container">
-        <div id="rosco"></div>
-    </div>
+    <!-- CONTENIDO DEL JUEGO -->
+    <div class="container">
 
-    <div class="question-panel">
-        <h3 id="letter">A</h3>
-        <p id="question">Presiona comenzar para iniciar.</p>
+        <header>
+            <h1>🐍 Rosco Educativo</h1>
+            <h2>El mito de Medusa</h2>
+        </header>
 
-        <div class="buttons">
-            <button onclick="speakQuestion()">🔊 Escuchar</button>
-            <button onclick="listenAnswer()">🎤 Responder</button>
-            <button onclick="passQuestion()">⏭️ Pasapalabra</button>
-            <button onclick="startGame()">▶️ Comenzar</button>
+        <div class="top-bar">
+
+            <div class="timer">
+                ⏱️ <span id="time">120</span>
+            </div>
+
+            <div class="score">
+                ✅ <span id="correct">0</span>
+                ❌ <span id="wrong">0</span>
+            </div>
+
         </div>
 
-        <div id="feedback"></div>
+        <div class="rosco-container">
+            <div id="rosco"></div>
+        </div>
+
+        <div class="question-panel">
+
+            <h3 id="letter">A</h3>
+
+            <p id="question">
+                Presioná comenzar para iniciar.
+            </p>
+
+            <div class="buttons">
+
+                <button onclick="speakQuestion()">
+                    🔊 Escuchar
+                </button>
+
+                <button onclick="listenAnswer()">
+                    🎤 Responder
+                </button>
+
+                <button onclick="passQuestion()">
+                    ⏭️ Pasapalabra
+                </button>
+
+            </div>
+
+            <div id="feedback"></div>
+
+        </div>
+
     </div>
 
-</div>
+    <script src="script.js"></script>
 
-<script src="script.js"></script>
 </body>
-      </html>
+</html>
+```
